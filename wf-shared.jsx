@@ -14,7 +14,7 @@ const Nav = ({ active = "Журнал" }) =>
     )}
     </div>
     <div className="nav-cta">
-      <button className="btn btn-ghost" style={{ padding: "6px 8px", fontSize: 24, lineHeight: 1, border: "none", background: "none" }} title="Поиск (⌘K)">⌕</button>
+      <button className="btn btn-ghost" style={{ padding: 0, width: 36, height: 36, fontSize: 20, lineHeight: 1, border: "none", background: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }} title="Поиск (⌘K)">⌕</button>
       <span className="small">Обсудить проект</span>
       <button className="btn btn-ghost" style={{ padding: "8px 14px", fontSize: 13 }}>Войти</button>
       <button className="btn btn-yellow" style={{ padding: "8px 14px", fontSize: 13 }}>Зарегистрироваться</button>
