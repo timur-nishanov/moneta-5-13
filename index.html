@@ -557,15 +557,6 @@ const Hero = () =>
           Экспертиза в платёжных решениях для бизнеса. Кейсы компаний, разборы интеграций
           и практические рекомендации по снижению комиссии, росту конверсии и управлению платежами.
         </p>
-        <div style={{ width: "100%", maxWidth: 560, marginTop: 32 }}>
-          <SearchBar />
-        </div>
-        <div className="row gap-12 wrap mt-16" style={{ alignItems: "center", justifyContent: "flex-start" }}>
-          <span className="small text-mute">Часто ищут:</span>
-          {["сплитование", "рекуррент", "СБП в офлайне", "API 2.0", "самозанятые", "нерезиденты"].map((x) =>
-        <span key={x} className="btn-link" style={{ fontSize: 13, fontWeight: 400 }}>{x}</span>
-        )}
-        </div>
       </div>
       <HeroNewsTeaser />
     </div>
@@ -764,8 +755,17 @@ const Cases = () => {
           Свернуть −</span>
         }
       </div>
+      <div className="materials-hero mt-32">
+        <div className="materials-hero-meta">
+          <span className="logomark">{cases[0].co}</span>
+          <span className="small mono text-mute">{cases[0].date}</span>
+        </div>
+        <h3 className="materials-hero-title">{cases[0].t}</h3>
+        <p className="materials-hero-desc">{cases[0].d}</p>
+        <button className="btn materials-hero-btn">Читать кейс →</button>
+      </div>
       <div className="two-col mt-32">
-        {cases.map((c, i) =>
+        {cases.slice(1).map((c, i) =>
         <div key={i} className="editor-card" style={{ padding: 32, gap: 16 }}>
             <div className="row gap-12" style={{ alignItems: "center" }}>
               <span className="logomark">{c.co}</span>
