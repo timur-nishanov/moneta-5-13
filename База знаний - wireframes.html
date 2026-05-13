@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Moneta · База знаний — wireframes</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="wireframe-styles.css" />
+<style>
+  html, body { margin:0; padding:0; background:#f0eee9; font-family:"Inter",system-ui,sans-serif; }
+  /* Hide scrollbar inside artboards but allow scroll if needed */
+  .dc-card { background:#fdfcf8; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="wf-shared.jsx"></script>
+<script type="text/babel" src="wf-v1.jsx"></script>
+<script type="text/babel" src="wf-v2.jsx"></script>
+<script type="text/babel" src="wf-v3.jsx"></script>
+<script type="text/babel" src="wf-v4.jsx"></script>
+<script type="text/babel" src="wf-v5.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState } = React;
+
+const Intro = () => (
+  <div style={{maxWidth:760, padding:"32px 0", color:"#3a3024", fontFamily:'"Inter",sans-serif', fontSize:14, lineHeight:1.55}}>
+    <div style={{fontSize:11, letterSpacing:"0.08em", textTransform:"uppercase", color:"#8a7a5a", marginBottom:8}}>Wireframes · Moneta · База знаний</div>
+    <h1 style={{fontSize:28, margin:0, fontWeight:600, letterSpacing:"-0.02em"}}>5 направлений для главной страницы журнала</h1>
+    <p style={{marginTop:12, color:"#5a4e3e"}}>
+      Все варианты следуют принципам ЛПР: <b>текстоцентрично</b>, минимум обложек (только для свежей статьи),
+      ритмичная вёрстка вместо карточной ленты, акценты — жёлтый, контрастный футер, есть поиск, разделы по типам, отраслям и задачам.
+      Inter, ч/б + 1 акцент. Кликни на артборд, чтобы открыть фуллскрин (←/→/Esc).
+    </p>
+    <ul style={{marginTop:12, paddingLeft:18, color:"#5a4e3e"}}>
+      <li><b>v1 · Index</b> — sticky sidebar с навигацией по типу/отрасли/задаче (Mollie‑подход)</li>
+      <li><b>v2 · Editorial</b> — журнальная подача: масштаб 64px, том/выпуск, асимметричный 12‑col grid</li>
+      <li><b>v3 · By Task</b> — главный экран = большая сетка задач и отраслей, контент вторичен</li>
+      <li><b>v4 · List‑first</b> — один длинный фильтруемый список всех материалов (changelog‑стиль)</li>
+      <li><b>v5 · Hybrid</b> — широкая колонка контента + sticky sidebar (редакция/популярное/теги)</li>
+    </ul>
+    <p style={{marginTop:12, color:"#8a7a5a", fontSize:13}}>※ Это lo‑fi скетчи — финальные визуалы и полная типографика придут на следующем шаге, когда выберем направление.</p>
+  </div>
+);
+
+const Notes = ({ children }) => (
+  <div style={{padding:"16px 0", color:"#6a5a3a", fontSize:12, fontFamily:"ui-monospace, monospace", lineHeight:1.55, maxWidth:680}}>
+    {children}
+  </div>
+);
+
+const App = () => (
+  <DesignCanvas>
+    <DCSection id="intro" title="Brief & Approach" subtitle="как читать эти wireframes">
+      <DCArtboard id="brief" label="Brief" width={780} height={420}>
+        <Intro />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="layouts" title="5 направлений главной" subtitle="Каждый артборд — целая страница. Кликни — откроется на весь экран.">
+      <DCArtboard id="v1" label="v1 · Index (sidebar)" width={1280} height={1900}>
+        <W1 />
+      </DCArtboard>
+      <DCArtboard id="v2" label="v2 · Editorial" width={1280} height={2200}>
+        <W2 />
+      </DCArtboard>
+      <DCArtboard id="v3" label="v3 · By Task" width={1280} height={2000}>
+        <W3 />
+      </DCArtboard>
+      <DCArtboard id="v4" label="v4 · List‑first" width={1280} height={2200}>
+        <W4 />
+      </DCArtboard>
+      <DCArtboard id="v5" label="v5 · Hybrid" width={1280} height={2300}>
+        <W5 />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="next" title="Что дальше" subtitle="как двигаться от wireframe к hi‑fi">
+      <DCArtboard id="next-steps" label="Следующие шаги" width={780} height={360}>
+        <Notes>
+          <div style={{fontFamily:'"Inter",sans-serif', fontSize:14, color:"#3a3024", lineHeight:1.6}}>
+            <div style={{fontSize:11, letterSpacing:"0.08em", textTransform:"uppercase", color:"#8a7a5a", marginBottom:8}}>Next</div>
+            <div style={{fontSize:18, fontWeight:600, marginBottom:8}}>Что я могу сделать дальше</div>
+            <ol style={{paddingLeft:18, color:"#5a4e3e"}}>
+              <li>Выбираем 1–2 направления из 5 → собираем гибрид (например v1+v3 или v2+v5)</li>
+              <li>Прорабатываем мобильную версию выбранного направления</li>
+              <li>Делаем hi‑fi прототип в фирменном стиле Монеты (Inter Display, жёлтый, контрастный футер)</li>
+              <li>Прорабатываем страницы списка (например /кейсы) и страницу одной статьи</li>
+              <li>Уточняем CTA, форму заявки и блок «Редакция»</li>
+            </ol>
+            <div style={{marginTop:16, paddingTop:12, borderTop:"1px dashed #c8b884", color:"#8a7a5a"}}>
+              <b>Открытые вопросы:</b><br/>
+              · Сколько типов контента показывать одновременно на главной (статьи + кейсы + гайды + новости + медиа = 5 разных лент — много?)<br/>
+              · Hover‑превью статьи в списке — нужно или избыточно?<br/>
+              · Тематические подборки‑дайджесты («Подписки от А до Я») — отдельная сущность?
+            </div>
+          </div>
+        </Notes>
+      </DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Moneta · База знаний</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="wireframe-styles.css" />
+<style>
+  html, body { margin:0; padding:0; background:#ffffff; font-family:"Inter",system-ui,sans-serif; }
+  body { color: var(--wf-ink); }
+  .wf { background: #ffffff; }
+  .wf .nav { background: #ffffff; }
+  .page { max-width: 1280px; margin: 0 auto; background: #ffffff; }
+  .container { max-width: 1180px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+
+  /* Footer full-bleed */
+  .footer-bleed { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; background: var(--wf-footer); }
+  .footer-bleed .footer { max-width: 1280px; margin: 0 auto; }
+
+  /* CTA strip — solid black */
+  .wf .cta-strip { background: #000; border: none; color: #fff; }
+  .wf .cta-strip h3 { color: #fff; }
+  .wf .cta-strip p { color: rgba(255,255,255,0.65); }
+  .wf .cta-strip .btn { background: #fff; color: #000; border-color: #fff; }
+  .wf .cta-strip .btn:hover { background: #f3f3f3; border-color: #f3f3f3; }
+
+  /* Kill all yellow, replace with ink/gray accents */
+  .wf .hl { background: transparent; padding: 0; border-bottom: 3px solid var(--wf-ink); border-radius: 0; }
+  .wf .nav .logo .dot { background: var(--wf-ink); }
+  .wf .btn-yellow { background: var(--wf-ink) !important; border-color: var(--wf-ink) !important; color: #fff !important; }
+  .wf .tag.is-yellow { background: var(--wf-ink); border-color: var(--wf-ink); color: #fff; }
+  .dd-trigger .count { background: var(--wf-ink); color: #fff; }
+  .wf .sidebar .is-active::before { color: var(--wf-ink); }
+
+  /* Card style: gray bg F3F3F3 — hover: white bg + ink border */
+  .news-card, .mat-card, .media-card, .editor-card {
+    background: #f3f3f3;
+    border: 1px solid transparent;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .news-card:hover, .mat-card:hover, .media-card:hover, .editor-card:hover {
+    background: #ffffff;
+    border-color: var(--wf-ink);
+  }
+  .editor-card {
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Hero news teaser */
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; align-items: start; }
+  .hero-news {
+    background: #f3f3f3;
+    border-radius: 14px;
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 280px;
+  }
+  .hero-news-head { display: flex; align-items: center; justify-content: space-between; }
+  .hero-news-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--wf-ink); font-weight: 600;
+  }
+  .hero-news-nav { display: inline-flex; align-items: center; gap: 10px; }
+  .hero-news-nav button {
+    width: 28px; height: 28px; border-radius: 999px;
+    border: 1px solid var(--wf-line); background: #fff;
+    cursor: pointer; font-size: 13px; color: var(--wf-ink);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .hero-news-nav button:hover { border-color: var(--wf-ink); }
+  .hero-news-count { font-size: 12px; color: var(--wf-mute); font-family: "JetBrains Mono", monospace; }
+  .hero-news-body { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .hero-news-date { font-size: 12px; color: var(--wf-mute); font-family: "JetBrains Mono", monospace; }
+  .hero-news-title { font-size: 20px; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
+  .hero-news-desc { font-size: 13px; color: var(--wf-ink-2); line-height: 1.5; }
+  .hero-news-dots { display: flex; gap: 6px; }
+
+  /* Slider dots */
+  .slider-dots { display: inline-flex; gap: 8px; align-items: center; margin-left: 16px; }
+  .slider-dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--wf-line); cursor: pointer; border: none; padding: 0;
+    transition: background .15s ease, width .15s ease;
+  }
+  .slider-dot.is-active { background: var(--wf-ink); width: 24px; border-radius: 999px; }
+
+  /* Form */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--wf-mute);
+  }
+  .field input {
+    border: 1px solid var(--wf-line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    outline: none;
+  }
+  .field input:focus { border-color: var(--wf-ink); }
+  .checkbox {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; color: var(--wf-ink-2);
+  }
+  .checkbox input { margin-top: 3px; }
+
+  /* Dropdown */
+  .dd {
+    position: relative;
+    display: inline-block;
+  }
+  .dd-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border: 1px solid var(--wf-line);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--wf-ink);
+  }
+  .dd-trigger:hover { border-color: var(--wf-ink); }
+  .dd-trigger.is-open { border-color: var(--wf-ink); background: var(--wf-fill); }
+  .dd-trigger .count {
+    background: var(--wf-ink);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .dd-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: #fff;
+    border: 1px solid var(--wf-line);
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 360px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    z-index: 10;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .dd-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 6px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .dd-item:hover { background: var(--wf-fill); }
+  .dd-item input { accent-color: var(--wf-ink); }
+  .dd-count { margin-left: auto; color: var(--wf-mute); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+  /* Photo placeholder for editor cards */
+  .photo-placeholder {
+    width: 96px; height: 96px;
+    border-radius: 999px;
+    background: #e5e5e5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wf-mute);
+    flex-shrink: 0;
+  }
+
+  /* Logo-mark for cases (text only, like a wordmark) */
+  .logomark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border: 1.5px solid var(--wf-ink);
+    border-radius: 6px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--wf-ink);
+    background: #fff;
+  }
+
+  /* Card grid for "Новое" / "Гайды" */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .news-card {
+    border-radius: 12px;
+    padding: 24px;
+    background: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 280px;
+  }
+  .news-card .date { font-size: 12px; color: var(--wf-mute); font-family: "JetBrains Mono", monospace; }
+  .news-card .title { font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+  .news-card .desc { font-size: 13px; color: var(--wf-ink-2); line-height: 1.5; }
+  .news-card .read { margin-top: auto; font-size: 13px; font-weight: 500; color: var(--wf-ink); }
+
+  /* Latest mosaic — one big hero card + 3 mini cards stacked */
+  .latest-mosaic {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .latest-row-top {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
+  }
+  .latest-row-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .latest-mosaic .news-hero {
+    border-radius: 12px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 380px;
+  }
+  .latest-mosaic .news-hero .title { font-size: 32px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; max-width: 18ch; }
+  .latest-mosaic .news-hero .desc { font-size: 15px; color: var(--wf-ink-2); line-height: 1.55; max-width: 50ch; }
+  .latest-mini { display: flex; flex-direction: column; gap: 20px; }
+  .latest-mosaic .news-mini {
+    border-radius: 12px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+  .latest-mosaic .news-mini .title { font-size: 15px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+  .latest-mosaic .news-mini .read { font-size: 12px; }
+  .latest-mosaic .news-mini-wide {
+    border-radius: 12px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 180px;
+  }
+  .latest-mosaic .news-mini-wide .title { font-size: 17px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+  .latest-mosaic .news-mini-wide .desc { font-size: 13px; color: var(--wf-ink-2); line-height: 1.5; }
+  .latest-mosaic .news-mini-wide .read { margin-top: auto; font-size: 13px; }
+
+  /* 3-col card grid for materials (Guides) */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .mat-card {
+    border-radius: 12px;
+    padding: 28px;
+    background: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 260px;
+  }
+  .mat-card .meta { display:flex; align-items:center; gap:12px; font-size:12px; color: var(--wf-mute); font-family:"JetBrains Mono", monospace; }
+  .mat-card .title { font-size: 18px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+  .mat-card .desc { font-size: 14px; color: var(--wf-ink-2); line-height: 1.5; }
+  .mat-card .read { margin-top: auto; align-self:flex-start; }
+
+  /* Media vertical card */
+  .media-card {
+    border-radius: 12px;
+    padding: 28px;
+    background: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 320px;
+  }
+  .media-card .source-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: 1.5px solid var(--wf-ink);
+    border-radius: 6px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--wf-ink);
+    background: #fff;
+    align-self: flex-start;
+  }
+  .media-card .title { font-size: 18px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+  .media-card .desc { font-size: 13px; color: var(--wf-ink-2); line-height: 1.5; }
+  .media-card .read { margin-top: auto; align-self: flex-start; font-size: 13px; font-weight: 500; }
+
+  /* Consult split */
+  .consult-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .consult-form-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .consult-form-stack .field input { width: 100%; box-sizing: border-box; }
+
+  /* Carousel arrows row */
+  .arrows {
+    display: inline-flex;
+    gap: 8px;
+    margin-left: 16px;
+  }
+  .arrow-btn {
+    width: 36px; height: 36px;
+    border: 1px solid var(--wf-line);
+    background: #fff;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .arrow-btn:hover { border-color: var(--wf-ink); }
+
+  /* Materials hero card */
+  .materials-hero {
+    background: #f3f3f3;
+    border-radius: 16px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .materials-hero-meta { display: flex; align-items: center; gap: 16px; }
+  .materials-hero-title {
+    font-size: 36px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.02em;
+    max-width: 24ch; margin: 8px 0 0;
+  }
+  .materials-hero-desc {
+    font-size: 16px; line-height: 1.55;
+    color: var(--wf-ink-2); max-width: 70ch; margin: 0;
+  }
+  .materials-hero-btn {
+    align-self: flex-start;
+    margin-top: 24px;
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+
+  /* Guides — row list with bottom borders, no card plate */
+  .guides-list { border-top: 1px solid var(--wf-ink); }
+  .guides-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 40px;
+    gap: 32px;
+    align-items: baseline;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--wf-line-2);
+    cursor: pointer;
+    transition: background .15s ease, padding .15s ease;
+  }
+  .guides-row:hover { background: #fafafa; padding-left: 12px; padding-right: 12px; }
+  .guides-row .meta {
+    display: flex; flex-direction: column; gap: 8px;
+    align-items: flex-start;
+    font-size: 12px; color: var(--wf-mute);
+    font-family: "JetBrains Mono", monospace;
+  }
+  .guides-row .body { display: flex; flex-direction: column; gap: 8px; }
+  .guides-row .title { font-size: 20px; font-weight: 500; line-height: 1.25; letter-spacing: -0.015em; color: var(--wf-ink); }
+  .guides-row .desc { font-size: 14px; color: var(--wf-ink-2); line-height: 1.5; max-width: 70ch; }
+  .guides-row .arr { font-size: 18px; color: var(--wf-ink); justify-self: end; align-self: center; }
+
+  /* Centered section header variant */
+  .section-head-center { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .section-head-center .h1 { max-width: 22ch; margin: 0 auto; }
+  .section-head-center .lede { max-width: 60ch; margin: 0 auto; }
+  .latest-controls {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin-top: 32px;
+  }
+  .latest-controls .btn-link { margin-right: 8px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body class="wf">
+<div id="root"></div>
+
+<script type="text/babel" src="wf-shared.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const { useState, useRef, useEffect } = React;
+
+/* ---------- Row (text-only list) ---------- */
+const Row = ({ date, source, title, desc, tags = [], read }) =>
+<div style={{
+  display: "grid", gridTemplateColumns: "120px 1fr 100px",
+  gap: 32, padding: "20px 0",
+  borderTop: "1px solid var(--wf-line-2)", alignItems: "baseline"
+}}>
+    <div className="small mono" style={{ color: "var(--wf-ink-2)" }}>{source || date}</div>
+    <div>
+      <div style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.35, letterSpacing: "-0.01em" }}>{title}</div>
+      {desc && <div className="body mt-8" style={{ fontSize: 14 }}>{desc}</div>}
+      {tags.length > 0 &&
+    <div className="row gap-8 mt-12 wrap">
+          {tags.map((t) => <Tag key={t}>{t}</Tag>)}
+        </div>
+    }
+    </div>
+    {read && <div className="small mono text-mute" style={{ textAlign: "right" }}>{read}</div>}
+  </div>;
+
+
+/* ---------- Plain section heading without numbered eyebrow ---------- */
+const Head = ({ title, sub, link, right }) =>
+<div className="section-head">
+    <div>
+      <h2 className="h1" style={{ maxWidth: "22ch" }}>{title}</h2>
+      {sub && <div className="lede mt-12" style={{ maxWidth: "60ch" }}>{sub}</div>}
+    </div>
+    {right ? right : link && <span className="btn-link">{link} <span className="arrow">→</span></span>}
+  </div>;
+
+
+/* ---------- Multi-select dropdown (Mindbox-ish) ---------- */
+const MultiDropdown = ({ label, options, selected, setSelected }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    const onClick = (e) => {if (ref.current && !ref.current.contains(e.target)) setOpen(false);};
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+  const toggle = (n) => {
+    setSelected(selected.includes(n) ? selected.filter((x) => x !== n) : [...selected, n]);
+  };
+  return (
+    <div className="dd" ref={ref}>
+      <button className={`dd-trigger ${open ? "is-open" : ""}`} onClick={() => setOpen((o) => !o)}>
+        <span>{label}</span>
+        {selected.length > 0 && <span className="count">{selected.length}</span>}
+        <span style={{ fontSize: 10, marginLeft: 4, opacity: 0.6 }}>{open ? "▲" : "▼"}</span>
+      </button>
+      {open &&
+      <div className="dd-panel">
+          {selected.length > 0 &&
+        <div className="row between" style={{ padding: "4px 6px 8px", borderBottom: "1px solid var(--wf-line-2)", marginBottom: 8 }}>
+              <span className="small">Выбрано: {selected.length}</span>
+              <span className="btn-link" style={{ fontSize: 12 }} onClick={() => setSelected([])}>сбросить</span>
+            </div>
+        }
+          {options.map((opt) => {
+          const [n, c] = Array.isArray(opt) ? opt : [opt, null];
+          const checked = selected.includes(n);
+          return (
+            <label key={n} className="dd-item">
+                <input type="checkbox" checked={checked} onChange={() => toggle(n)} />
+                <span>{n}</span>
+                {c != null && <span className="dd-count">{c}</span>}
+              </label>);
+
+        })}
+        </div>
+      }
+    </div>);
+
+};
+
+/* ---------- Hero ---------- */
+const HeroNewsTeaser = () => {
+  const items = [
+  { tag: "06 МАЯ", title: "Как увеличить конверсию платежей на сайте", desc: "Что мешает пользователям дойти до оплаты и какие 6 рычагов реально влияют на конверсию в платёж." },
+  { tag: "02 МАЯ", title: "Сплитование платежей между селлерами", desc: "Архитектура мультивендорного маркетплейса и обработка возвратов." },
+  { tag: "28 АПР", title: "СБП в офлайне: интеграция за рабочий день", desc: "Что происходит на стороне кассы и как настроить динамический QR на курьере." }];
+  const [i, setI] = useState(0);
+  const cur = items[i];
+  const prev = () => setI((x) => (x - 1 + items.length) % items.length);
+  const next = () => setI((x) => (x + 1) % items.length);
+  return (
+    <div className="hero-news">
+      <div className="hero-news-head">
+        <span className="hero-news-label">Новое</span>
+        <div className="hero-news-nav">
+          <button onClick={prev} aria-label="Назад">←</button>
+          <span className="hero-news-count">{i + 1}/{items.length}</span>
+          <button onClick={next} aria-label="Вперёд">→</button>
+        </div>
+      </div>
+      <div className="hero-news-body">
+        <div className="hero-news-date">{cur.tag} 2026</div>
+        <div className="hero-news-title">{cur.title}</div>
+        <div className="hero-news-desc">{cur.desc}</div>
+        <span className="btn-link" style={{ fontSize: 13, marginTop: "auto", borderBottom: "none", paddingBottom: 0, alignSelf: "flex-start" }}>Читать статью →</span>
+      </div>
+    </div>);
+};
+
+const Hero = () =>
+<section className="container" style={{ paddingTop: 64, paddingBottom: 48, margin: "0px 32px 0px 10px", padding: "64px 40px 100px" }}>
+    <div className="crumbs"><span>Главная</span><span>Журнал</span></div>
+    <div className="hero-grid" style={{ marginTop: 32 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left" }}>
+        <h1 style={{ lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.03em", margin: 0, fontSize: "48px", whiteSpace: "nowrap" }}>
+          Финтех-журнал «Монета»
+        </h1>
+        <p className="lede mt-24" style={{ maxWidth: "56ch", fontSize: "16px", margin: "24px 0 0" }}>
+          Экспертиза в платёжных решениях для бизнеса. Кейсы компаний, разборы интеграций
+          и практические рекомендации по снижению комиссии, росту конверсии и управлению платежами.
+        </p>
+        <div style={{ width: "100%", maxWidth: 560, marginTop: 32 }}>
+          <SearchBar />
+        </div>
+        <div className="row gap-12 wrap mt-16" style={{ alignItems: "center", justifyContent: "flex-start" }}>
+          <span className="small text-mute">Часто ищут:</span>
+          {["сплитование", "рекуррент", "СБП в офлайне", "API 2.0", "самозанятые", "нерезиденты"].map((x) =>
+        <span key={x} className="btn-link" style={{ fontSize: 13, fontWeight: 400 }}>{x}</span>
+        )}
+        </div>
+      </div>
+      <HeroNewsTeaser />
+    </div>
+  </section>;
+
+
+/* ---------- Latest as cards (4-5) with arrows ---------- */
+const Latest = () => {
+  const cards = [
+  { date: "06 МАЯ 2026", title: "Как увеличить конверсию платежей на сайте", desc: "Почему пользователи не оплачивают заказы на последних этапах воронки и какие способы помогут повысить конверсию в платёж." },
+  { date: "02 МАЯ 2026", title: "Сплитование платежей: разделение оплаты между селлерами", desc: "Архитектура мультивендорного маркетплейса, юридическая модель и обработка возвратов." },
+  { date: "28 АПР 2026", title: "СБП в офлайне: интеграция за рабочий день", desc: "Что происходит на стороне кассы и как настроить динамический QR на курьере." },
+  { date: "22 АПР 2026", title: "Подписочная модель: рекуррентные платежи без боли", desc: "Удержание карт, обработка отказов, налоги и чеки на каждый платёж." },
+  { date: "18 АПР 2026", title: "API Monета 2.0: что изменилось для разработчиков", desc: "Новые методы, изменения в идемпотентности, миграция со старой версии." }];
+
+  const [start, setStart] = useState(0);
+  const visible = 4;
+  const max = Math.max(0, cards.length - visible);
+  const prev = () => setStart((s) => Math.max(0, s - 1));
+  const next = () => setStart((s) => Math.min(max, s + 1));
+  const slice = cards.slice(start, start + visible);
+  return (
+    <section className="container" style={{ paddingTop: 48, paddingBottom: 32 }}>
+      <div className="section-head-center" style={{ textAlign: "left", alignItems: "center", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+        <h2 className="h1" style={{ margin: 0 }}>Новое в журнале</h2>
+        <div className="arrows" style={{ marginLeft: 0 }}>
+          <button className="arrow-btn" onClick={prev} disabled={start === 0}>←</button>
+          <button className="arrow-btn" onClick={next} disabled={start === max}>→</button>
+        </div>
+      </div>
+
+      <div className="card-grid mt-32">
+        {slice.map((c, i) =>
+        <div key={i} className="news-card">
+            <div className="date">{c.date}</div>
+            <div className="title">{c.title}</div>
+            <div className="desc">{c.desc}</div>
+            <div className="read">Читать статью →</div>
+          </div>
+        )}
+      </div>
+    </section>);
+
+};
+
+/* ---------- Industries / Tasks — dropdowns + чипы ---------- */
+const Industries = () => {
+  const industries = [
+  ["Маркетплейсы", 24], ["HoReCa", 22], ["Ритейл", 18], ["Образование", 15],
+  ["Доставки", 12], ["МФО", 9], ["Медицина", 7], ["Шеринг", 6],
+  ["Стриминг", 6], ["Онлайн‑игры", 5], ["Госструктуры", 7], ["Благотворительность", 4],
+  ["Отели", 6], ["Рестораны", 8], ["Билеты", 4], ["Авто", 3],
+  ["Интернет‑магазины", 18], ["Нерезиденты", 4]];
+
+  const tasks = [
+  "Интернет‑эквайринг", "Мультиэквайринг", "СБП", "API",
+  "Сплитование", "Подписки", "Чеки", "Отправка чеков",
+  "Подключение кассы", "Прием в приложении", "Прием по ссылке", "Прием в соцсетях",
+  "Безопасная сделка", "Прием от юр.лиц", "Самозанятые", "Конструктор витрин",
+  "Оплата ЖКХ", "Оплата штрафов", "Оплата налогов", "Расчётное обслуживание"];
+
+  const [selInd, setSelInd] = useState([]);
+  const [selTask, setSelTask] = useState([]);
+
+  return (
+    <IndustriesWithCards selInd={selInd} setSelInd={setSelInd} selTask={selTask} setSelTask={setSelTask} industries={industries} tasks={tasks} />);
+
+};
+
+const IndustriesWithCards = ({ selInd, setSelInd, selTask, setSelTask, industries, tasks }) => {
+  const allArticles = [
+  { date: "02 МАЯ 2026", tag: "Маркетплейсы", title: "Сплитование на маркетплейсе из 2 400 продавцов", desc: "Архитектура расщепления, юридическая модель и обработка возвратов." },
+  { date: "28 АПР 2026", tag: "HoReCa", title: "СБП в офлайне: интеграция за рабочий день", desc: "Что происходит на стороне кассы и как настроить динамический QR." },
+  { date: "24 АПР 2026", tag: "Образование", title: "Подписочные тарифы для онлайн‑школы", desc: "Удержание карт, рекуррент, чеки и обработка отказов." },
+  { date: "20 АПР 2026", tag: "Госструктуры", title: "Бесшовная оплата госпошлины: −100 часов ручной работы", desc: "Как провести оплату госпошлины и сократить ручные операции." },
+  { date: "18 АПР 2026", tag: "Ритейл", title: "API Monета 2.0 для разработчиков", desc: "Новые методы, изменения в идемпотентности, миграция со старой версии." },
+  { date: "14 АПР 2026", tag: "Нерезиденты", title: "Нерезиденты на российском рынке", desc: "Валютный контроль, документы, реальная схема расчётов." }];
+
+  const filterTags = [...selInd, ...selTask];
+  const visible = filterTags.length > 0 ?
+  allArticles.filter((a) => filterTags.includes(a.tag)) :
+  allArticles;
+  return (
+    <section className="container" style={{ paddingTop: 80, paddingBottom: 32 }}>
+      <Head
+        title="Материалы по отраслям и задачам"
+        sub="Подобрали материалы с навигацией по ключевым потребностям — от готовых интеграций для ресторанов и отелей до сценариев оптимизации платежей под конкретные бизнес‑модели." />
+      <div className="row gap-16 wrap mt-32">
+        <MultiDropdown
+          label="Отрасли"
+          options={industries}
+          selected={selInd}
+          setSelected={setSelInd} />
+        
+        <MultiDropdown
+          label="Сценарии"
+          options={tasks}
+          selected={selTask}
+          setSelected={setSelTask} />
+        
+        {(selInd.length > 0 || selTask.length > 0) &&
+        <span className="btn-link" style={{ fontSize: 13, alignSelf: "center" }} onClick={() => {setSelInd([]);setSelTask([]);}}>сбросить всё</span>
+        }
+      </div>
+      {filterTags.length > 0 &&
+      <div className="row gap-8 wrap mt-24">
+          {filterTags.map((t) =>
+        <span key={t} className="tag is-active" style={{ cursor: "pointer" }}
+        onClick={() => {
+          if (selInd.includes(t)) setSelInd(selInd.filter((x) => x !== t));else
+          setSelTask(selTask.filter((x) => x !== t));
+        }}>
+              {t} ✕
+            </span>
+        )}
+        </div>
+      }
+      <div className="materials-hero mt-32" data-comment-anchor="materials-hero">
+        <div className="materials-hero-meta">
+          <Tag yellow>Маркетплейсы</Tag>
+          <span className="small mono text-mute">{visible[0]?.date || allArticles[0].date}</span>
+        </div>
+        <h3 className="materials-hero-title">{visible[0]?.title || allArticles[0].title}</h3>
+        <p className="materials-hero-desc">{visible[0]?.desc || allArticles[0].desc}</p>
+        <div className="row gap-8 mt-16" style={{ opacity: "0" }}><Tag>{visible[0]?.tag || allArticles[0].tag}</Tag></div>
+        <button className="btn materials-hero-btn">Читать материал →</button>
+      </div>
+      <div className="guides-list mt-32" style={{ borderColor: "rgb(255, 255, 255)" }}>
+        {visible.length === 0 ?
+        <div className="body" style={{ textAlign: "center", padding: 40, color: "var(--wf-mute)" }}>По выбранным тегам материалов пока нет — попробуйте сбросить фильтр.</div> :
+        visible.slice(1).map((a, i) =>
+        <div key={i} className="guides-row">
+            <div className="meta">
+              <Tag>{a.tag}</Tag>
+              <span>{a.date}</span>
+            </div>
+            <div className="body">
+              <div className="title">{a.title}</div>
+              <div className="desc">{a.desc}</div>
+            </div>
+            <span className="arr">→</span>
+          </div>
+        )}
+      </div>
+      {visible.length > 0 &&
+      <div className="center mt-32">
+        <button className="btn btn-ghost">Показать больше статей</button>
+      </div>
+      }
+    </section>);
+};
+
+/* ---------- Cases with industry tabs + "Ещё 5" expander ---------- */
+const Cases = () => {
+  const baseTabs = ["HoReCa", "Ритейл", "Услуги", "Строительство", "Школы/Вузы", "Госструктуры", "Производство"];
+  const moreTabs = ["Маркетплейсы", "МФО", "Медицина", "Шеринг", "Стриминг"];
+  const [expanded, setExpanded] = useState(false);
+  const [active, setActive] = useState("HoReCa");
+  const tabs = expanded ? [...baseTabs, ...moreTabs] : baseTabs;
+
+  const cases = [
+  { co: "ТопСто", date: "06 МАЯ 2026", t: "Оплата госпошлины: бесшовно для клиента, −100 часов ручной работы в месяц", d: "Как бесшовно проводить оплату госпошлины за клиентов, сократить ручную работу и выстроить удобный процесс." },
+  { co: "Kostis", date: "28 АПР 2026", t: "Кейтеринг: −50% комиссии за эквайринг и доля СБП до 85%", d: "Гибкая работа с меняющимися суммами заказов, динамический QR на стороне курьера." },
+  { co: "Маркет‑X", date: "20 АПР 2026", t: "Сплитование на маркетплейсе из 2 400 продавцов", d: "Архитектура расщепления, юридическая модель, обработка возвратов и аналитика по селлерам." },
+  { co: "EduTech", date: "12 АПР 2026", t: "Подписочные тарифы для онлайн‑школы: миграция за 2 недели", d: "Удержание карт, рекуррент, чеки и обработка отказов." }];
+
+
+  return (
+    <section className="container" style={{ paddingTop: 80, paddingBottom: 32 }}>
+      <Head
+        title="Кейсы и практический опыт"
+        sub="Реальные истории внедрения платёжных решений. Разбираем архитектуру, решаем сложные задачи интеграции и показываем прозрачные результаты в цифрах."
+        link="Смотреть все кейсы" />
+      
+      <div className="row gap-8 wrap mt-24" style={{ alignItems: "center" }}>
+        {tabs.map((t) =>
+        <span
+          key={t}
+          className={`tag ${active === t ? "is-active" : ""}`}
+          onClick={() => setActive(t)}
+          style={{ cursor: "pointer" }}>
+          {t}</span>
+        )}
+        {!expanded &&
+        <span
+          className="tag"
+          onClick={() => setExpanded(true)}
+          style={{ cursor: "pointer", borderStyle: "dashed", color: "var(--wf-ink-2)" }}>
+          Ещё 5 +</span>
+        }
+        {expanded &&
+        <span
+          className="tag"
+          onClick={() => setExpanded(false)}
+          style={{ cursor: "pointer", borderStyle: "dashed", color: "var(--wf-ink-2)" }}>
+          Свернуть −</span>
+        }
+      </div>
+      <div className="two-col mt-32">
+        {cases.map((c, i) =>
+        <div key={i} className="editor-card" style={{ padding: 32, gap: 16 }}>
+            <div className="row gap-12" style={{ alignItems: "center" }}>
+              <span className="logomark">{c.co}</span>
+              <span className="small mono text-mute">{c.date}</span>
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.015em", lineHeight: 1.25, marginTop: 8 }}>{c.t}</div>
+            <div className="body" style={{ fontSize: 14 }}>{c.d}</div>
+            <div className="btn-link" style={{ fontSize: 13, alignSelf: "flex-start", marginTop: "auto" }}>Читать кейс →</div>
+          </div>
+        )}
+      </div>
+    </section>);
+
+};
+
+const ConnectCTA = () =>
+<section className="container" style={{ paddingTop: 48, paddingBottom: 32 }}>
+    <div className="cta-strip" style={{ backgroundColor: "rgb(0, 0, 0)" }}>
+      <div>
+        <h3 style={{ color: "rgb(255, 255, 255)" }}>Подключите интернет‑эквайринг за 1 рабочий день</h3>
+        <p style={{ color: "rgba(255, 255, 255, 0.6)" }}>Для регистрации нужны только ИНН, контакты и ссылка на сайт. Персональный менеджер поможет с интеграцией.</p>
+      </div>
+      <button className="btn" style={{ backgroundColor: "rgb(255, 255, 255)", color: "rgb(0, 0, 0)" }}>Оставить заявку →</button>
+    </div>
+  </section>;
+
+
+const Guides = () => {
+  const all = [
+  { date: "30 АПР 2026", title: "Как пополнить Steam: легальные способы для бизнеса и физлиц", desc: "Что делать, если деньги есть и хочется их занести Габену. Разобрали 4 рабочие схемы.", tag: "Стриминг" },
+  { date: "24 АПР 2026", title: "Подключение онлайн‑кассы: пошаговая инструкция", desc: "От заявки до первой фискализации. Чек‑лист и типовые ошибки.", tag: "Кассы" },
+  { date: "19 АПР 2026", title: "Регистрация дохода самозанятых через API", desc: "Поток данных, чеки, отчётность с примерами кода.", tag: "API" },
+  { date: "15 АПР 2026", title: "Безопасная сделка: когда нужна и как настроить", desc: "Сценарии для маркетплейсов, недвижимости и услуг.", tag: "Эскроу" },
+  { date: "08 АПР 2026", title: "Прием платежей по ссылке: 3 сценария для микробизнеса", desc: "Когда страница оплаты избыточна и достаточно одной ссылки.", tag: "Витрины" },
+  { date: "02 АПР 2026", title: "Чеки 54‑ФЗ: что фискализировать и когда", desc: "Сценарии разных типов бизнеса и типовые ошибки на старте.", tag: "Чеки" },
+  { date: "28 МАР 2026", title: "Конструктор витрин: страница оплаты за 5 минут без кода", desc: "Для микробизнеса и точечных кампаний — собрать страницу руками не‑разработчика.", tag: "Витрины" },
+  { date: "22 МАР 2026", title: "Мультиэквайринг: зачем держать 2+ банка одновременно", desc: "Снижение рисков, балансировка, аналитика по каналам приёма.", tag: "Мультиэквайринг" },
+  { date: "15 МАР 2026", title: "API Monета 2.0: миграция за один спринт", desc: "Что изменилось в идемпотентности и как обновить интеграцию.", tag: "API" }];
+
+  const [shown, setShown] = useState(6);
+  return (
+    <section className="container" style={{ paddingTop: 80, paddingBottom: 32 }}>
+      <Head
+        title="База знаний и руководства"
+        sub="Практические руководства по подключению, настройке и развитию платёжных решений. Сценарии использования, нюансы интеграций и подходы к оптимизации."
+        link="Смотреть все гайды" />
+      <div className="grid-3 mt-32">
+        {all.slice(0, shown).map((a, i) =>
+        <div key={i} className="mat-card">
+            <div className="meta"><Tag>{a.tag}</Tag><span>{a.date}</span></div>
+            <div className="title">{a.title}</div>
+            <div className="desc">{a.desc}</div>
+            <button className="btn read" style={{ padding: "10px 18px", fontSize: 13 }}>Читать →</button>
+          </div>
+        )}
+      </div>
+      {shown < all.length &&
+      <div className="center mt-32">
+          <button className="btn btn-ghost" onClick={() => setShown(all.length)}>
+            Показать ещё {all.length - shown}
+          </button>
+        </div>
+      }
+    </section>);
+
+};
+
+
+const Media = () => {
+  const items = [
+  { source: "PLUSWORLD", title: "Сплитование платежей: как разделить оплату между селлерами на маркетплейсе", desc: "Директор по продажам компании Монета Максим Пашкевич рассказал PlusWorld, как автоматически разделить оплату между несколькими продавцами." },
+  { source: "VC.RU", title: "Что меняется в эквайринге в 2026 году: 5 трендов от CTO Монеты", desc: "Колонка для предпринимательского сообщества о трендах рынка и регуляторных изменениях." },
+  { source: "FORBES", title: "СБП vs карты: где проигрывает классический эквайринг", desc: "Аналитика на данных 20 млн транзакций в месяц о реальном перетоке платежей." },
+  { source: "RBC", title: "Подписочная экономика в России: что мешает массовому переходу", desc: "Комментарий руководителя продукта подписок Монеты для деловой аудитории." }];
+
+  return (
+    <section className="container" style={{ paddingTop: 80, paddingBottom: 32 }}>
+      <Head title="Медиа о нас" />
+      <div className="card-grid mt-32">
+        {items.map((m, i) =>
+        <div key={i} className="media-card">
+            <span className="source-logo">{m.source}</span>
+            <div className="title">{m.title}</div>
+            <div className="desc">{m.desc}</div>
+            <span className="btn-link read">Читать материал <span className="arrow">→</span></span>
+          </div>
+        )}
+      </div>
+    </section>);
+
+};
+
+
+const Editorial = () =>
+<section className="container" style={{ paddingTop: 80, paddingBottom: 32 }}>
+    <Head
+    title="Редакция журнала"
+    sub="Материалы на основе практического опыта специалистов, которые работают с платежами на стыке разработки, аналитики и права. Технический опыт переводим в понятные материалы — от базовых принципов работы эквайринга до тонких настроек."
+    link="Подробнее о редакции" />
+  
+    <div className="three-col mt-32">
+      {[
+    { n: "Илья Нымм", r: "Главный редактор", b: "Задаёт стандарты контента и следит, чтобы даже самые сложные сценарии интеграций были понятны владельцу бизнеса." },
+    { n: "Анастасия Гущина", r: "Редактор · финтех‑тренды", b: "Изучает рынок и разбирает финтех‑тренды на детали, чтобы писать только проверенные и рабочие материалы." },
+    { n: "Яна Баширова", r: "Редактор · безопасность и эквайринг", b: "Помогает экспертам по безопасности и эквайрингу рассказывать о нюансах простым языком, сохраняя глубину материала." }].
+    map((p) =>
+    <div key={p.n} className="editor-card">
+          <span className="photo-placeholder" aria-label="Фото">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <circle cx="12" cy="12" r="3.5" />
+              <path d="M8 5l1.5-2h5L16 5" />
+            </svg>
+          </span>
+          <div style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.015em", marginTop: 12 }}>{p.n}</div>
+          <div className="small">{p.r}</div>
+          <div className="body mt-8">{p.b}</div>
+          <div className="btn-link mt-8" style={{ fontSize: 13, alignSelf: "flex-start" }}>Узнать подробнее →</div>
+        </div>
+    )}
+    </div>
+  </section>;
+
+
+/* ---------- Consultation: split — heading left, vertical inputs right ---------- */
+const ConsultForm = () =>
+<section className="container" style={{ paddingTop: 80, paddingBottom: 80, borderTop: "1px solid var(--wf-line-2)" }}>
+    <div className="consult-split">
+      <div>
+        <h2 className="h1" style={{ fontSize: 44, lineHeight: 1.05, letterSpacing: "-0.025em" }}>Получите консультацию по платежам</h2>
+        <p className="lede mt-16" style={{ maxWidth: "40ch" }}>
+          Оставьте заявку и в течение дня менеджер свяжется с вами. Мы изучим цепочку платежей,
+          оценим потребности бизнеса и предложим решение на их основе.
+        </p>
+      </div>
+      <form className="consult-form-stack">
+        <div className="field">
+          <label>Имя</label>
+          <input placeholder="Иван Петров" />
+        </div>
+        <div className="field">
+          <label>Email</label>
+          <input placeholder="ivan@company.ru" />
+        </div>
+        <div className="field">
+          <label>Телефон</label>
+          <input placeholder="+7 (___) ___‑__‑__" />
+        </div>
+        <div className="field">
+          <label>Компания</label>
+          <input placeholder="ООО «Компания»" />
+        </div>
+        <label className="checkbox mt-8">
+          <input type="checkbox" defaultChecked />
+          <span>Согласен на обработку персональных данных в соответствии с <span className="btn-link" style={{ fontSize: 13 }}>политикой конфиденциальности</span>.</span>
+        </label>
+        <button className="btn mt-12" style={{ padding: "14px 28px", justifyContent: "center" }}>Отправить заявку →</button>
+      </form>
+    </div>
+  </section>;
+
+
+
+/* ---------- Page (no Featured, no eyebrow numbers) ---------- */
+const Page = () =>
+<div className="page">
+    <Nav active="Журнал" />
+    <Hero />
+    <Industries />
+    <Cases />
+    <ConnectCTA />
+    <Guides />
+    <Media />
+    <Editorial />
+    <ConsultForm />
+    <div className="footer-bleed"><Footer /></div>
+  </div>;
+
+
+ReactDOM.createRoot(document.getElementById("root")).render(<Page />);
+</script>
+</body>
+</html>
