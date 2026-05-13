@@ -7,29 +7,16 @@ const W5 = () => (
   <div className="wf" style={{width:1280, minHeight:2300, background:"var(--wf-bg)", position:"relative"}}>
     <Nav active="Журнал" />
 
-    {/* Hero — сжатый, текстовый, поиск рядом */}
+    {/* Hero — сжатый, текстовый */}
     <div className="px-40 py-48" style={{borderBottom:"1px solid var(--wf-line-2)"}}>
-      <div style={{display:"grid", gridTemplateColumns:"1.2fr 1fr", gap:48, alignItems:"end"}}>
-        <div>
-          <div className="micro">Журнал · База знаний</div>
-          <h1 className="display mt-12" style={{maxWidth:"18ch"}}>
-            Платежи без <span className="underline-sk">воды</span>: только практика
-          </h1>
-          <p className="lede mt-16" style={{maxWidth:"58ch"}}>
-            Кейсы, разборы интеграций и рекомендации по комиссии и конверсии. От экспертов Монеты —
-            компании, через которую проходит 20 млн транзакций в месяц.
-          </p>
-        </div>
-        <div className="col gap-16">
-          <SearchBar />
-          <div className="row gap-8 wrap">
-            <span className="small text-mute">Популярное:</span>
-            {["сплитование","рекуррент","СБП","API 2.0","самозанятые"].map(x=>(
-              <span key={x} className="btn-link" style={{fontSize:12,fontWeight:400}}>{x}</span>
-            ))}
-          </div>
-        </div>
-      </div>
+      <div className="micro">Журнал · База знаний</div>
+      <h1 className="display mt-12" style={{maxWidth:"18ch"}}>
+        Платежи без <span className="underline-sk">воды</span>: только практика
+      </h1>
+      <p className="lede mt-16" style={{maxWidth:"58ch"}}>
+        Кейсы, разборы интеграций и рекомендации по комиссии и конверсии. От экспертов Монеты —
+        компании, через которую проходит 20 млн транзакций в месяц.
+      </p>
     </div>
 
     {/* Asymmetric body: 8 + 4 */}
@@ -72,30 +59,56 @@ const W5 = () => (
           </div>
         </div>
 
-        {/* Кейсы — текстовый двухколоночник */}
+        {/* Кейсы — акцентная карточка + двухколоночник */}
         <div className="mt-64">
           <div className="row between" style={{borderBottom:"1.5px solid var(--wf-ink)", paddingBottom:8, marginBottom:20}}>
             <div className="micro">Кейсы и практический опыт</div>
             <span className="btn-link" style={{fontSize:13}}>Все кейсы →</span>
           </div>
-          <div className="row gap-8 wrap" style={{marginBottom:20}}>
+          <div className="row gap-8 wrap" style={{marginBottom:24}}>
             {["HoReCa","Ритейл","Услуги","Строительство","Школы/Вузы","Госструктуры","Производство"].map((t,i)=>(
               <Tag key={t} active={i===0}>{t}</Tag>
             ))}
           </div>
+
+          {/* Акцентный кейс */}
+          <div style={{display:"grid", gridTemplateColumns:"1fr 320px", gap:32, alignItems:"start", paddingBottom:28, marginBottom:24, borderBottom:"1px solid var(--wf-line-2)"}}>
+            <div>
+              <div className="row gap-8" style={{alignItems:"center"}}>
+                <div style={{width:36,height:36,borderRadius:6,background:"var(--wf-ink)",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:600,fontFamily:"ui-monospace"}}>ТС</div>
+                <span className="small mono">ТопСто</span>
+                <span className="small text-mute">·</span>
+                <span className="small mono text-mute">06 МАЯ 2026</span>
+                <Tag>Госструктуры</Tag>
+                <Tag>Эквайринг</Tag>
+              </div>
+              <h2 className="h2 mt-16" style={{fontSize:26, lineHeight:1.2, maxWidth:"28ch"}}>
+                Бесшовная оплата госпошлины — −100 часов ручной работы в месяц
+              </h2>
+              <p className="body mt-12" style={{maxWidth:"52ch"}}>
+                Архитектура интеграции в госструктурах, юридические нюансы и прозрачные результаты в цифрах: комиссия, конверсия, стабильность.
+              </p>
+              <div className="row gap-24 mt-20" style={{alignItems:"center"}}>
+                <button className="btn">Читать кейс →</button>
+                <span className="small mono">14 МИН · ЛЕВ ПАВЛОВ</span>
+              </div>
+            </div>
+            <div className="ph" style={{height:200}}>обложка кейса</div>
+          </div>
+
           <div className="two-col">
             {[
-              {co:"ТопСто", t:"Оплата госпошлины: −100 часов ручной работы", d:"Архитектура для госструктур, прозрачные цифры по комиссии и конверсии."},
-              {co:"Kostis", t:"Кейтеринг: −50% комиссии, СБП до 85%", d:"Гибкие суммы заказов, динамический QR на курьере."},
-              {co:"Маркет‑X", t:"Сплитование на 2 400 продавцов", d:"Юр.модель, обработка возвратов, аналитика по селлерам."},
-              {co:"EduTech", t:"Подписки за 2 недели миграции", d:"Удержание карт, чеки, обработка отказов."},
+              {co:"Kostis", ab:"KO", t:"Кейтеринг: −50% комиссии, СБП до 85%", d:"Гибкие суммы заказов, динамический QR на курьере.", date:"28 АПР 2026"},
+              {co:"Маркет‑X", ab:"МX", t:"Сплитование на 2 400 продавцов", d:"Юр.модель, обработка возвратов, аналитика по селлерам.", date:"20 АПР 2026"},
+              {co:"EduTech", ab:"ED", t:"Подписки за 2 недели миграции", d:"Удержание карт, чеки, обработка отказов.", date:"12 АПР 2026"},
+              {co:"Строй‑Лайт", ab:"СЛ", t:"Оплата от юрлиц без интернет‑банка", d:"Счета, акты, мультибанк и автоматическая сверка.", date:"04 АПР 2026"},
             ].map((c,i)=>(
               <div key={i} style={{padding:"18px 0", borderBottom:"1px solid var(--wf-line-2)"}}>
                 <div className="row gap-12" style={{alignItems:"center"}}>
-                  <div style={{width:32,height:32,borderRadius:6,background:"var(--wf-ink)",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:600,fontFamily:"ui-monospace"}}>{c.co.slice(0,2).toUpperCase()}</div>
+                  <div style={{width:32,height:32,borderRadius:6,background:"var(--wf-ink)",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:600,fontFamily:"ui-monospace"}}>{c.ab}</div>
                   <span className="small mono">{c.co}</span>
                   <span className="small text-mute">·</span>
-                  <span className="small text-mute mono">28 АПР 2026</span>
+                  <span className="small text-mute mono">{c.date}</span>
                 </div>
                 <div className="h3 mt-12" style={{maxWidth:"24ch"}}>{c.t}</div>
                 <div className="body mt-8">{c.d}</div>
