@@ -527,7 +527,7 @@ const HeroNewsTeaser = () => {
   const prev = () => setI((x) => (x - 1 + items.length) % items.length);
   const next = () => setI((x) => (x + 1) % items.length);
   return (
-    <div className="hero-news">
+    <div className="hero-news" style={{ background: "#ffffff" }}>
       <div className="hero-news-head">
         <span className="hero-news-label">Новое</span>
         <div className="hero-news-nav">
@@ -546,10 +546,11 @@ const HeroNewsTeaser = () => {
 };
 
 const Hero = () =>
-<section className="container" style={{ paddingTop: 64, paddingBottom: 48, margin: "0px 32px 0px 10px", padding: "64px 40px 100px" }}>
-    <div className="crumbs"><span>Главная</span><span>Журнал</span></div>
-    <div className="hero-grid" style={{ marginTop: 32, alignItems: "center" }}>
+<div style={{ background: "#f3f3f3" }}>
+  <section className="container" style={{ padding: "48px 40px 80px" }}>
+    <div className="hero-grid" style={{ marginTop: 0, alignItems: "center" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left" }}>
+        <div className="crumbs" style={{ marginBottom: 16 }}><span>Главная</span><span>Журнал</span></div>
         <h1 style={{ lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.03em", margin: 0, fontSize: "48px", whiteSpace: "nowrap" }}>
           Финтех-журнал «Монета»
         </h1>
@@ -560,7 +561,8 @@ const Hero = () =>
       </div>
       <HeroNewsTeaser />
     </div>
-  </section>;
+  </section>
+</div>;
 
 
 /* ---------- Latest as cards (4-5) with arrows ---------- */
@@ -644,25 +646,33 @@ const IndustriesWithCards = ({ selInd, setSelInd, selTask, setSelTask, industrie
       <Head
         title="Материалы по отраслям и задачам"
         sub="Подобрали материалы с навигацией по ключевым потребностям — от готовых интеграций для ресторанов и отелей до сценариев оптимизации платежей под конкретные бизнес‑модели." />
+      <div className="materials-hero mt-32" data-comment-anchor="materials-hero">
+        <div className="materials-hero-meta">
+          <Tag yellow>Маркетплейсы</Tag>
+          <span className="small mono text-mute">{visible[0]?.date || allArticles[0].date}</span>
+        </div>
+        <h3 className="materials-hero-title">{visible[0]?.title || allArticles[0].title}</h3>
+        <p className="materials-hero-desc">{visible[0]?.desc || allArticles[0].desc}</p>
+        <div className="row gap-8 mt-16" style={{ opacity: "0" }}><Tag>{visible[0]?.tag || allArticles[0].tag}</Tag></div>
+        <button className="btn materials-hero-btn">Читать материал →</button>
+      </div>
       <div className="row gap-16 wrap mt-32">
         <MultiDropdown
           label="Отрасли"
           options={industries}
           selected={selInd}
           setSelected={setSelInd} />
-        
         <MultiDropdown
           label="Сценарии"
           options={tasks}
           selected={selTask}
           setSelected={setSelTask} />
-        
         {(selInd.length > 0 || selTask.length > 0) &&
         <span className="btn-link" style={{ fontSize: 13, alignSelf: "center" }} onClick={() => {setSelInd([]);setSelTask([]);}}>сбросить всё</span>
         }
       </div>
       {filterTags.length > 0 &&
-      <div className="row gap-8 wrap mt-24">
+      <div className="row gap-8 wrap mt-16">
           {filterTags.map((t) =>
         <span key={t} className="tag is-active" style={{ cursor: "pointer" }}
         onClick={() => {
@@ -674,17 +684,7 @@ const IndustriesWithCards = ({ selInd, setSelInd, selTask, setSelTask, industrie
         )}
         </div>
       }
-      <div className="materials-hero mt-32" data-comment-anchor="materials-hero">
-        <div className="materials-hero-meta">
-          <Tag yellow>Маркетплейсы</Tag>
-          <span className="small mono text-mute">{visible[0]?.date || allArticles[0].date}</span>
-        </div>
-        <h3 className="materials-hero-title">{visible[0]?.title || allArticles[0].title}</h3>
-        <p className="materials-hero-desc">{visible[0]?.desc || allArticles[0].desc}</p>
-        <div className="row gap-8 mt-16" style={{ opacity: "0" }}><Tag>{visible[0]?.tag || allArticles[0].tag}</Tag></div>
-        <button className="btn materials-hero-btn">Читать материал →</button>
-      </div>
-      <div className="guides-list mt-32" style={{ borderColor: "rgb(255, 255, 255)" }}>
+      <div className="guides-list mt-24" style={{ borderColor: "rgb(255, 255, 255)" }}>
         {visible.length === 0 ?
         <div className="body" style={{ textAlign: "center", padding: 40, color: "var(--wf-mute)" }}>По выбранным тегам материалов пока нет — попробуйте сбросить фильтр.</div> :
         visible.slice(1).map((a, i) =>
