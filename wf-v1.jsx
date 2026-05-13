@@ -27,9 +27,6 @@ const W1 = () => {
           Экспертиза в платёжных решениях для бизнеса. Кейсы, разборы интеграций, практические рекомендации
           по снижению комиссии, росту конверсии и управлению платёжными процессами.
         </p>
-        <div style={{maxWidth:560, marginTop:24}}>
-          <SearchBar />
-        </div>
       </div>
 
       {/* Two-column body */}
@@ -101,17 +98,36 @@ const W1 = () => {
                 <Tag key={t} active={i===0}>{t}</Tag>
               ))}
             </div>
+            {/* Акцентный кейс */}
+            <div className="hero-card" style={{marginBottom:24, paddingBottom:24, borderBottom:"1px solid var(--wf-line-2)"}}>
+              <div>
+                <div className="row gap-8" style={{alignItems:"center"}}>
+                  <div style={{width:36,height:36,borderRadius:6,background:"var(--wf-ink)",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:600,fontFamily:"ui-monospace"}}>ТС</div>
+                  <span className="small mono">ТопСто</span>
+                  <span className="small text-mute">·</span>
+                  <span className="small mono text-mute">06 МАЯ 2026</span>
+                  <Tag>Госструктуры</Tag><Tag>Эквайринг</Tag>
+                </div>
+                <h2 className="h1 mt-16" style={{maxWidth:"24ch"}}>Оплата госпошлины: бесшовно для клиента, −100 часов ручной работы в месяц</h2>
+                <p className="body mt-16">Ручная работа с платежами в госструктурах. Что мы автоматизировали и какие цифры получили по комиссии, конверсии и стабильности.</p>
+                <div className="row gap-16 mt-24" style={{alignItems:"center"}}>
+                  <button className="btn">Читать кейс →</button>
+                  <span className="small mono">14 МИН · ЛЕВ ПАВЛОВ</span>
+                </div>
+              </div>
+              <div className="ph" style={{minHeight:220}}>обложка кейса</div>
+            </div>
+
             <div className="two-col">
               {[
-                {co:"ТопСто", t:"Оплата госпошлины: бесшовно для клиента, −100 часов в месяц", d:"Ручная работа с платежами в госструктурах. Что мы автоматизировали и какие цифры получили."},
-                {co:"Kostis", t:"Кейтеринг: −50% комиссии и доля СБП до 85%", d:"Гибкая работа с меняющимися суммами заказов и динамическим QR на стороне курьера."},
-                {co:"Маркет‑X", t:"Сплитование на маркетплейсе из 2 400 продавцов", d:"Архитектура расщепления, юр. модель, обработка возвратов."},
-                {co:"EduTech", t:"Подписочные тарифы для онлайн‑школы: миграция за 2 недели", d:"Удержание карт, рекуррент, чеки и удержание при отказе."},
+                {co:"Kostis", ab:"KO", t:"Кейтеринг: −50% комиссии и доля СБП до 85%", d:"Гибкая работа с меняющимися суммами заказов и динамическим QR на стороне курьера.", date:"28 АПР 2026"},
+                {co:"Маркет‑X", ab:"МX", t:"Сплитование на маркетплейсе из 2 400 продавцов", d:"Архитектура расщепления, юр. модель, обработка возвратов.", date:"20 АПР 2026"},
+                {co:"EduTech", ab:"ED", t:"Подписочные тарифы для онлайн‑школы: миграция за 2 недели", d:"Удержание карт, рекуррент, чеки и удержание при отказе.", date:"12 АПР 2026"},
               ].map((c,i)=>(
                 <div key={i} className="box p-24">
                   <div className="row gap-12" style={{alignItems:"center"}}>
-                    <div style={{width:40,height:40,borderRadius:8,background:"var(--wf-fill)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontFamily:"ui-monospace"}}>{c.co.slice(0,2).toUpperCase()}</div>
-                    <div className="small mono">{c.co} · 28 АПР 2026</div>
+                    <div style={{width:40,height:40,borderRadius:8,background:"var(--wf-fill)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontFamily:"ui-monospace"}}>{c.ab}</div>
+                    <div className="small mono">{c.co} · {c.date}</div>
                   </div>
                   <div className="h3 mt-16">{c.t}</div>
                   <div className="body mt-8">{c.d}</div>
