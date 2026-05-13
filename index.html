@@ -64,7 +64,7 @@
   }
   .hero-news-head { display: flex; align-items: center; justify-content: space-between; }
   .hero-news-label {
-    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
     color: var(--wf-ink); font-weight: 600;
   }
   .hero-news-nav { display: inline-flex; align-items: center; gap: 10px; }
@@ -288,7 +288,7 @@
   .mat-card .meta { display:flex; align-items:center; gap:12px; font-size:12px; color: var(--wf-mute); font-family:"JetBrains Mono", monospace; }
   .mat-card .title { font-size: 18px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
   .mat-card .desc { font-size: 14px; color: var(--wf-ink-2); line-height: 1.5; }
-  .mat-card .read { margin-top: auto; align-self:flex-start; }
+  .mat-card .read { margin-top: auto; align-self:flex-start; font-size: 13px; font-weight: 500; color: var(--wf-ink); }
 
   /* Media vertical card */
   .media-card {
@@ -440,6 +440,10 @@
 
 const { useState, useRef, useEffect } = React;
 
+/* Локальный Tag без инлайн-переопределений wf-shared */
+const T = ({ children, active, yellow }) =>
+  <span className={`tag${active ? " is-active" : ""}${yellow ? " is-yellow" : ""}`}>{children}</span>;
+
 /* ---------- Row (text-only list) ---------- */
 const Row = ({ date, source, title, desc, tags = [], read }) =>
 <div style={{
@@ -453,7 +457,7 @@ const Row = ({ date, source, title, desc, tags = [], read }) =>
       {desc && <div className="body mt-8" style={{ fontSize: 14 }}>{desc}</div>}
       {tags.length > 0 &&
     <div className="row gap-8 mt-12 wrap">
-          {tags.map((t) => <Tag key={t}>{t}</Tag>)}
+          {tags.map((t) => <T key={t}>{t}</T>)}
         </div>
     }
     </div>
@@ -489,7 +493,7 @@ const MultiDropdown = ({ label, options, selected, setSelected }) => {
       <button className={`dd-trigger ${open ? "is-open" : ""}`} onClick={() => setOpen((o) => !o)}>
         <span>{label}</span>
         {selected.length > 0 && <span className="count">{selected.length}</span>}
-        <span style={{ fontSize: 10, marginLeft: 4, opacity: 0.6 }}>{open ? "▲" : "▼"}</span>
+        <span style={{ fontSize: 12, marginLeft: 4, opacity: 0.5 }}>{open ? "▲" : "▼"}</span>
       </button>
       {open &&
       <div className="dd-panel">
@@ -648,12 +652,12 @@ const IndustriesWithCards = ({ selInd, setSelInd, selTask, setSelTask, industrie
         sub="Подобрали материалы с навигацией по ключевым потребностям — от готовых интеграций для ресторанов и отелей до сценариев оптимизации платежей под конкретные бизнес‑модели." />
       <div className="materials-hero mt-32" data-comment-anchor="materials-hero">
         <div className="materials-hero-meta">
-          <Tag yellow>Маркетплейсы</Tag>
+          <T yellow>Маркетплейсы</T>
           <span className="small mono text-mute">{visible[0]?.date || allArticles[0].date}</span>
         </div>
         <h3 className="materials-hero-title">{visible[0]?.title || allArticles[0].title}</h3>
         <p className="materials-hero-desc">{visible[0]?.desc || allArticles[0].desc}</p>
-        <div className="row gap-8 mt-16" style={{ opacity: "0" }}><Tag>{visible[0]?.tag || allArticles[0].tag}</Tag></div>
+        <div className="row gap-8 mt-16" style={{ opacity: "0" }}><T>{visible[0]?.tag || allArticles[0].tag}</T></div>
         <button className="btn materials-hero-btn">Читать материал →</button>
       </div>
       <div className="row gap-16 wrap mt-32">
@@ -690,7 +694,7 @@ const IndustriesWithCards = ({ selInd, setSelInd, selTask, setSelTask, industrie
         visible.slice(1).map((a, i) =>
         <div key={i} className="guides-row">
             <div className="meta">
-              <Tag>{a.tag}</Tag>
+              <T>{a.tag}</T>
               <span>{a.date}</span>
             </div>
             <div className="body">
@@ -816,10 +820,10 @@ const Guides = () => {
       <div className="grid-3 mt-32">
         {all.slice(0, shown).map((a, i) =>
         <div key={i} className="mat-card">
-            <div className="meta"><Tag>{a.tag}</Tag><span>{a.date}</span></div>
+            <div className="meta"><T>{a.tag}</T><span>{a.date}</span></div>
             <div className="title">{a.title}</div>
             <div className="desc">{a.desc}</div>
-            <button className="btn read" style={{ padding: "10px 18px", fontSize: 13 }}>Читать →</button>
+            <span className="btn-link read" style={{ fontSize: 13, fontWeight: 500 }}>Читать →</span>
           </div>
         )}
       </div>
