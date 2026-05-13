@@ -39,15 +39,6 @@ const W4 = () => {
             <h1 className="display mt-12" style={{maxWidth:"18ch"}}>Всё, что мы знаем о платежах</h1>
             <p className="lede mt-16" style={{maxWidth:"60ch"}}>142 материала: статьи, кейсы, гайды, документация и публикации в внешних медиа. Один список — все фильтры.</p>
           </div>
-          <div style={{width:380}}>
-            <SearchBar />
-            <div className="row gap-8 wrap mt-12">
-              <span className="small text-mute">Часто:</span>
-              {["сплитование","СБП","API","самозанятые"].map(x=>(
-                <span key={x} className="btn-link" style={{fontSize:12,fontWeight:400}}>{x}</span>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 

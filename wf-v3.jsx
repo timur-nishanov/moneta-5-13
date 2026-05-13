@@ -17,15 +17,6 @@ const W3 = () => (
         Подобрали материалы с навигацией по ключевым потребностям бизнеса —
         от готовых интеграций до сценариев оптимизации.
       </p>
-      <div style={{maxWidth:640, margin:"32px auto 0"}}>
-        <SearchBar placeholder="Введите задачу: «принимать платежи в приложении»…" />
-      </div>
-      <div className="row gap-8 mt-16 wrap" style={{justifyContent:"center"}}>
-        <span className="small text-mute">Часто ищут:</span>
-        {["сплитование","СБП офлайн","рекуррент","API","самозанятые"].map(x=>(
-          <span key={x} className="btn-link" style={{fontSize:12, fontWeight:400}}>{x}</span>
-        ))}
-      </div>
     </div>
 
     {/* Two-column: отрасли | задачи — как dispatch board */}
